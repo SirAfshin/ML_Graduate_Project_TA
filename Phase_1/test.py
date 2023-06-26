@@ -5,18 +5,22 @@ import logging
 import argparse
 from robustbench import load_cifar10, load_model
 from robustbench.data import load_cifar100
-from models.resnet18kualingu import ResNet18
-from models.vgg_repo import vgg16_bn
+from models.resnet import ResNet50 # importing resnet50 model and change every model to resnet50
+
 
 # I should note that to run this script, it is necessary to create a model folder and a state_dict inside it.
 from utils import *
+
+# define required paths on google drive
+model_path_drive = "/content/drive/MyDrive/ML_VIsion/_ALL_checkpoints/Standard/ckpt.pth"
+result_path = 'results/cifar10/results.log'
 
 # Set up logger
 logger = logging.getLogger(__name__)
 logger.setLevel(logging.INFO)
 formatter = logging.Formatter('%(asctime)s - %(levelname)s - %(message)s')
 # Please Create a folder named results in the root directory of the project for saving the results in results.log
-file_handler = logging.FileHandler('results/cifar10/results.log')
+file_handler = logging.FileHandler(result_path)
 file_handler.setLevel(logging.INFO)
 file_handler.setFormatter(formatter)
 logger.addHandler(file_handler)
@@ -28,7 +32,7 @@ parser = argparse.ArgumentParser()
 
 parser.add_argument("--sample", type=int, help="number of samples", default=100)
 parser.add_argument("--bs", default=100, type=int, help="batch size")
-parser.add_argument("--model",default="ResNet18",type=str,help="model name")
+parser.add_argument("--model",default="ResNet50",type=str,help="model name")
 args = parser.parse_args()
 n_examples = args.sample
 batch_size = n_examples
@@ -42,7 +46,7 @@ def create_CIFAR10_loader(n_examples = n_examples ,batch_size = batch_size, shuf
     
     return test_loader
 
-def cifar10_test(device, model_name: str = 'ResNet18',batch_size = batch_size, n_examples = n_examples,checkpoint_type: str='pth'):
+def cifar10_test(device, model_name: str = 'ResNet50',batch_size = batch_size, n_examples = n_examples,checkpoint_type: str='pth'):
     batch_size = batch_size
     os.makedirs(os.path.join('data', 'torchvision'), exist_ok=True)
     os.makedirs(os.path.join('results', 'cifar10'), exist_ok=True)
@@ -53,30 +57,30 @@ def cifar10_test(device, model_name: str = 'ResNet18',batch_size = batch_size, n
     test_loader = torch.utils.data.DataLoader(test_dataset, batch_size=batch_size, shuffle=False)
 
     if  checkpoint_type == 'pth':
-        if model_name == 'ResNet18' :
-            model = ResNet18()
+        if model_name == 'ResNet50' :
+            model = ResNet50()
             model = nn.DataParallel(model)
-            checkpoint = torch.load(r"C:\Users\AliReza\Dropbox\Farnia\src\models\state_dicts\resnet18_kualingu.pth")
+            checkpoint = torch.load(model_path_drive)
             model.load_state_dict(checkpoint['net'])
             model = normalize_model(model, mean = (.4914, 0.4822, 0.4465), std = (0.2023, 0.1994, 0.2010))
-        elif model_name == 'vgg' :
-            model = vgg16_bn(pretrained=True)
-            model = normalize_model(model, mean = (.4914, 0.4822, 0.4465), std = (0.2471, 0.2435, 0.2616))
+        # elif model_name == 'vgg' :
+        #     model = vgg16_bn(pretrained=True)
+        #     model = normalize_model(model, mean = (.4914, 0.4822, 0.4465), std = (0.2471, 0.2435, 0.2616))
             
         else:
             raise ValueError(f"Model {model_name} not found")
     
     elif  checkpoint_type == 'pt':
-        if model_name == 'ResNet18':
-            model = ResNet18()
+        if model_name == 'ResNet50':
+            model = ResNet50()
             model = nn.DataParallel(model) # note that please check the repo, if it uses the Dataprallel use this line!
             model.load_state_dict(torch.load(r"ckpth.pth"))
             model = normalize_model(model, mean = (.4914, 0.4822, 0.4465), std = (0.2023, 0.1994, 0.2010))
-        elif model_name == 'vgg':
-            model = vgg16_bn(pretrained=True)
-            model = nn.DataParallel(model) # note that please check the repo, if it uses the Dataprallel use this line!
-            model.load_state_dict(torch.load(r"ckpth.pth"))
-            model = normalize_model(model, mean = (.4914, 0.4822, 0.4465), std = (0.2471, 0.2435, 0.2616))
+        # elif model_name == 'vgg':
+        #     model = vgg16_bn(pretrained=True)
+        #     model = nn.DataParallel(model) # note that please check the repo, if it uses the Dataprallel use this line!
+        #     model.load_state_dict(torch.load(r"ckpth.pth"))
+        #     model = normalize_model(model, mean = (.4914, 0.4822, 0.4465), std = (0.2471, 0.2435, 0.2616))
             
         else:
             raise ValueError(f"Model {model_name} not found")
