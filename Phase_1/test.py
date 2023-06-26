@@ -5,15 +5,23 @@ import logging
 import argparse
 from robustbench import load_cifar10, load_model
 from robustbench.data import load_cifar100
-from models.resnet import ResNet50 # importing resnet50 model and change every model to resnet50
+
+# from models.resnet_addpool import ResNet50 # importing resnet50 model and change every model to resnet50
+# from models.resnet_nobatch import ResNet50 # importing resnet50 model and change every model to resnet50
+# from models.resnet_nopool import ResNet50 # importing resnet50 model and change every model to resnet50
+from models.resnet_standard import ResNet50 # importing resnet50 model and change every model to resnet50
 
 
 # I should note that to run this script, it is necessary to create a model folder and a state_dict inside it.
 from utils import *
 
 # define required paths on google drive
-model_path_drive = "/content/drive/MyDrive/ML_VIsion/_ALL_checkpoints/Standard/ckpt.pth"
-result_path = 'results/cifar10/results.log'
+
+# model_path_drive = "/content/drive/MyDrive/ML_VIsion/RobustBench_test/resnet_addpool.pth"
+# model_path_drive = "/content/drive/MyDrive/ML_VIsion/RobustBench_test/resnet_nobatch.pth"
+# model_path_drive = "/content/drive/MyDrive/ML_VIsion/RobustBench_test/resnet_nopool.pth"
+model_path_drive = "/content/drive/MyDrive/ML_VIsion/RobustBench_test/resnet_standard.pth"
+result_path = '/content/drive/MyDrive/ML_VIsion/RobustBench_test/results/cifar10/results.log'
 
 # Set up logger
 logger = logging.getLogger(__name__)
