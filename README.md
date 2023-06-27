@@ -17,10 +17,10 @@ make sure to run this code twice for it to work!
 ## Usage
 Before running the code you need to store all .pth files in the address bellow:
 instead of * use the name of your model, you should change it inside test.py as well.
-'''python
+```python
 model_path_drive  = '/content/drive/MyDrive/ML_VIsion/RobustBench_test/*.pth'
 
-'''
+```
 After that you need to bring all your resnet.py architectures to the directory your code is in and move them in folder models, then modify the import inside the code.
 ```python
 from models.resnet import ResNet50
