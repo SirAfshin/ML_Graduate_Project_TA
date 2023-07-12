@@ -1,10 +1,19 @@
-# Update 
+# Participants
+- Ahmadreza Horobi
+- Mohammad Barati Dehaghi
+
+# Phase 3 
+This phase consist of testing robustness of the already trained models in phase 1 with DDN and AutoAttack.
+All .pth and .py files are saved on google drive.
+
+# Phase 1 
+## Update 
 The code has been changed so it can test resnet50 architecrute.
 
-# ML_Graduate_Project_TA
+## ML_Graduate_Project_TA
 This repository contains the code related to the image project for the advanced machine course taught by Dr. Seyedin.
 
-## Dependencies
+### Dependencies
 
 To install dependences on google colab use code bellow:
 ```python
@@ -14,7 +23,7 @@ warnings.filterwarnings('ignore')
 ```
 make sure to run this code twice for it to work!
 
-## Usage
+### Usage
 Before running the code you need to store all .pth files in the address bellow:
 instead of * use the name of your model, you should change it inside test.py as well.
 ```python
@@ -32,5 +41,5 @@ Then you can run the code using this line of code in google colab.
 
 ```
 
-# Keep in mind
+## Keep in mind
 The code was meant to run on google colab so if you want to run it locally you need to change it yourself!
