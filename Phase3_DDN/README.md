@@ -21,3 +21,4 @@
 - Success: 100.00% 
 - Mean L2: 0.0942 
 - Median L2: 0.0893
+![image](https://github.com/SirAfshin/ML_Graduate_Project_TA/assets/49054585/414c7d43-4c1e-4501-a3e7-4c7082239273)
