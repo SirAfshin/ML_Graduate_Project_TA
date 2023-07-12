@@ -1,1 +1,29 @@
+The AA_ResNet50_standard.ipynb code is ResNet50 standard. In the first steps, the Auto Attack folder is downloaded. Open the eval.py file, which is located at the following address.
+/content/auto-attack/autoattack/examples/eval.py
+In line 15, import the desired models
+from resnet import *
+There are 4 in the project we did
+1. ResNet50_standard
+2. ResNet50_addpool
+3. ResNet50_nopool
+4. ResNet50_nobatch
+In lines 20, 21, and 22
+parser.add_argument('--norm', type=str, default='Linf')
+parser.add_argument('--epsilon', type=float, default=8./255.)
+parser.add_argument('--model', type=str, default='./model_test.pt')
 
+• The norm parameter that you determine in this project is l2 linf
+• In the next line is the epsilon value
+• In the last line, the most modeled with the pth file should be placed.
+Write the following code in lines 35 to 44
+
+  ckpt = torch.load(args.model)
+     model.load_state_dict(ckpt)
+     model.cuda()
+     model.eval()
+
+     # load data
+     transform_list = [transforms.ToTensor()]
+     transform_chain = transforms.Compose(transform_list)
+     item = datasets.CIFAR10(root=args.data_dir, train=False, transform=transform_chain, download=True)
+     test_loader = data.DataLoader(item, batch_size=1000, shuffle=False, num_workers=0)
