@@ -10,9 +10,9 @@ The AA_ResNet50_standard.ipynb has the code for the standard version of Resnet50
 from resnet import *
 ```
 - There are 4 resnet50 models you can use 
-  1. ResNet50_standard -> Resnet50 model without change
-  2. ResNet50_addpool -> Resnet50 model with extra pooling layer
-  3. ResNet50_nopool -> Resnet50 model without pooling layers
+  1. ResNet50_standard ->  Resnet50 model without change
+  2. ResNet50_addpool ->  Resnet50 model with extra pooling layer
+  3. ResNet50_nopool ->  Resnet50 model without pooling layers
   4. ResNet50_nobatch -> Resnet50 model without batch normalization layers
 
 - Change the 20, 21, and 22 lines like bellow
